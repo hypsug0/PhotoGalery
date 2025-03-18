@@ -2,6 +2,7 @@ import json
 
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
+from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
 from .models import Photo, Tags
 
@@ -13,7 +14,10 @@ class JSONSerializerField(serializers.Field):
         return data
 
     def to_representation(self, value):
-        return json.loads(value)
+        try:
+            return json.loads(value)
+        except json.JSONDecodeError:
+            return None
 
 
 class TagsSerializer(ModelSerializer):
@@ -23,12 +27,13 @@ class TagsSerializer(ModelSerializer):
         fields = ("label",)
 
 
-class PhotoSerializer(ModelSerializer):
+class PhotoSerializer(GeoFeatureModelSerializer):
     tags = TagsSerializer(many=True, read_only=True)
     exif_data = JSONSerializerField()
 
     class Meta:
         model = Photo
+        geo_field = "geom"
         fields = (
             "name",
             "description",
@@ -37,4 +42,5 @@ class PhotoSerializer(ModelSerializer):
             "photographer",
             "tags",
             "timestamp_create",
+            "geom",
         )

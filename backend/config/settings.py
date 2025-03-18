@@ -24,7 +24,6 @@ def gettext(s):
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -72,6 +71,7 @@ CSRF_TRUSTED_ORIGINS = config(
 
 INSTALLED_APPS = [
     "modeltranslation",
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -80,10 +80,16 @@ INSTALLED_APPS = [
     "django.contrib.gis",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework_gis",
+    "core",
+    "core.user",
+    "core.auth",
     "galery",
+    # "user",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -94,6 +100,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "config.urls"
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
 
 TEMPLATES = [
     {
@@ -124,8 +138,12 @@ DATABASES = {
     )
 }
 
-print(DATABASES)
-print(config("DATABASE_URL"))
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_RENDERER_CLASSES": ("rest_framework.renderers.JSONRenderer",),
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -197,3 +215,16 @@ EMAIL_PORT = config("EMAIL_PORT", cast=int, default=465)
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="<MyEmailPwd>")
 EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="username@email.net")
 EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default=True)
+
+
+# APPLICATION SPECIFICS
+MEDIA_UPLOAD = "media/"
+print("BASE_DIR", BASE_DIR)
+MEDIA_ROOT = BASE_DIR / MEDIA_UPLOAD
+print("MEDIA_ROOT", MEDIA_ROOT)
+# print("MEDIA_ROOT", MEDIA_ROOT)
+MEDIA_URL = "api/v1/media/"
+# DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+
+
+AUTH_USER_MODEL = "core_user.User"

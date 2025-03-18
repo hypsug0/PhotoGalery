@@ -46,7 +46,7 @@ class Photo(models.Model):
     )
     timestamp_create = models.DateTimeField(auto_now_add=True)
     timestamp_update = models.DateTimeField(auto_now=True)
-    image = models.ImageField()
+    image = models.ImageField(upload_to="photo")
 
     def __str__(self):
         """
