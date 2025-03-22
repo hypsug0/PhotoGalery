@@ -20,7 +20,3 @@ class TagsViewset(ModelViewSet):
 class PhotoViewset(ModelViewSet):
     serializer_class = PhotoSerializer
     queryset = Photo.objects.all()
-
-    def get_queryset(self):
-        # Adjust the query based on the language, e.g., filtering or annotating
-        return super().get_queryset()

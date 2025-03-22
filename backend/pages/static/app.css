@@ -1,0 +1,8 @@
+@font-face {
+    font-family: PhotographSignature;
+    src: url("./Photograph\ Signature.ttf") format("truetype");
+}
+
+.pretty-title {
+    font-family: PhotographSignature;
+}

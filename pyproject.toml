@@ -21,6 +21,8 @@ pre-commit = "^4.1.0"
 djangorestframework-gis = "^1.1"
 django-cors-headers = "^4.7.0"
 djangorestframework-simplejwt = "^5.5.0"
+crispy-bootstrap5 = "^2024.10"
+django-taggit = "^6.1.0"
 
 
 [tool.poetry.group.dev.dependencies]

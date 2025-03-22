@@ -106,6 +106,24 @@ files = [
 ]
 
 [[package]]
+name = "crispy-bootstrap5"
+version = "2024.10"
+description = "Bootstrap5 template pack for django-crispy-forms"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "crispy_bootstrap5-2024.10-py3-none-any.whl", hash = "sha256:59e91dac5e45a8c954af3fbcaa6804cd5aef4402f027af2f99a352b096c4016f"},
+    {file = "crispy_bootstrap5-2024.10.tar.gz", hash = "sha256:55b442fe675dd95ad280123c7fe464f454186e90b8e5642e751f436c87627c44"},
+]
+
+[package.dependencies]
+django = ">=4.2"
+django-crispy-forms = ">=2.3"
+
+[package.extras]
+test = ["pytest", "pytest-django"]
+
+[[package]]
 name = "dill"
 version = "0.3.9"
 description = "serialize all of Python"
@@ -182,6 +200,20 @@ asgiref = ">=3.6"
 django = ">=4.2"
 
 [[package]]
+name = "django-crispy-forms"
+version = "2.3"
+description = "Best way to have Django DRY forms"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django_crispy_forms-2.3-py3-none-any.whl", hash = "sha256:efc4c31e5202bbec6af70d383a35e12fc80ea769d464fb0e7fe21768bb138a20"},
+    {file = "django_crispy_forms-2.3.tar.gz", hash = "sha256:2db17ae08527201be1273f0df789e5f92819e23dd28fec69cffba7f3762e1a38"},
+]
+
+[package.dependencies]
+django = ">=4.2"
+
+[[package]]
 name = "django-filter"
 version = "24.3"
 description = "Django-filter is a reusable Django application for allowing users to filter querysets dynamically."
@@ -221,6 +253,20 @@ files = [
 
 [package.dependencies]
 djangorestframework = "*"
+
+[[package]]
+name = "django-taggit"
+version = "6.1.0"
+description = "django-taggit is a reusable Django application for simple tagging."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django_taggit-6.1.0-py3-none-any.whl", hash = "sha256:ab776264bbc76cb3d7e49e1bf9054962457831bd21c3a42db9138b41956e4cf0"},
+    {file = "django_taggit-6.1.0.tar.gz", hash = "sha256:c4d1199e6df34125dd36db5eb0efe545b254dec3980ce5dd80e6bab3e78757c3"},
+]
+
+[package.dependencies]
+Django = ">=4.1"
 
 [[package]]
 name = "djangorestframework"
@@ -951,4 +997,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "ccbe5d92b4474996846efeca042cd49ec4892e70a6b9ec3800c9dcd8318e6acc"
+content-hash = "e5a686ecad65c13c0684891de3f87b82150fe0617b305794d47d0ef8751e9134"

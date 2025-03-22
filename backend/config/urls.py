@@ -24,5 +24,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/v1/", include("core.urls"), name="core-api"),
     path("api/v1/", include("galery.urls"), name="galery"),
+    path("", include("pages.urls"), name="pages"),
     # path('api/', include(('core.routers', 'core'), namespace='core-api')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

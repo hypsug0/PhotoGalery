@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n  crispy_forms_tags %}
+
+{% block content %}
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div class=" text-end">
+        <input class="btn btn-success" type="submit" value="{% translate "Save" %}" />
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

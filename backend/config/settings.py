@@ -81,10 +81,15 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_gis",
+    "crispy_forms",
+    "crispy_bootstrap5",
+    "taggit",
+    # App packages
     "core",
     "core.user",
     "core.auth",
     "galery",
+    "pages",
     # "user",
 ]
 
@@ -202,6 +207,7 @@ MODELTRANSLATION_LANGUAGES = ("fr", "en")
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
+STATIC_ROOT = BASE_DIR / "static/"
 STATIC_URL = "static/"
 
 # Default primary key field type
@@ -228,3 +234,8 @@ MEDIA_URL = "api/v1/media/"
 
 
 AUTH_USER_MODEL = "core_user.User"
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"

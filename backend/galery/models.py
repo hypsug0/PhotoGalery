@@ -6,6 +6,20 @@ from django.contrib.gis.db import models as gis_models
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from exif import Image
+from taggit.managers import TaggableManager
+
+
+class Album(models.Model):
+    """Album"""
+
+    label = models.CharField(max_length=100, verbose_name=("Label"))
+    description = models.TextField(verbose_name=("Description"), default="")
+    timestamp_create = models.DateTimeField(auto_now_add=True)
+    timestamp_update = models.DateTimeField(auto_now=True)
+    slug = models.SlugField(default="", null=False)
+
+    def __str__(self):
+        return f"{self.label}"
 
 
 class Tags(models.Model):
@@ -31,9 +45,13 @@ class Photo(models.Model):
         max_length=244, verbose_name=_("Country"), blank=True
     )
     geom = gis_models.PointField(
-        srid=4326, verbose_name=_("Geometry"), blank=True
+        srid=4326, verbose_name=_("Geometry"), blank=True, null=True
     )
-    tags = models.ManyToManyField(Tags)
+    album = models.ForeignKey(
+        Album, on_delete=models.CASCADE, verbose_name=_("Album")
+    )
+    # tags = models.ManyToManyField(Tags)
+    tags = TaggableManager()
     photographer = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
@@ -47,12 +65,18 @@ class Photo(models.Model):
     timestamp_create = models.DateTimeField(auto_now_add=True)
     timestamp_update = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to="photo")
+    slug = models.SlugField(default="", null=False)
 
     def __str__(self):
         """
         String representation
         """
         return f"{self.name}"
+
+    @property
+    def exif_dict(self) -> dict:
+        """Exif data as dict"""
+        return json.loads(self.exif_data)
 
     @classmethod
     def show_all_photos(cls):
