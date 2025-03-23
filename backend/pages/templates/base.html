@@ -10,7 +10,7 @@
     <title>Album example · Bootstrap v5.2</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css" integrity="sha512-CpIKUSyh9QX2+zSdfGP+eWLx23C8Dj9/XmHjZY2uDtfkdLGo0uY12jgcnkX9vXOgYajEKb/jiw67EYm+kBf+6g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="{% static 'app.css' %}">
+    <link rel="stylesheet" href="{% static 'app.css' %}" />
     <meta name="theme-color" content="#712cf9" />
   </head>
   <body>
@@ -59,14 +59,14 @@
       {% endblock %}
     </main>
 
-    <footer class="text-muted py-5">
-      <div class="container">
+    <footer class="text-muted py-2 ">
+      <div class="container-fluid">
         <p class="float-end mb-1">
           <a href="#">Back to top</a>
         </p>
-        <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-        <p class="mb-0">
-          New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.2/getting-started/introduction/">getting started guide</a>.
+        <p class="mb-1">
+          Photo galery deployed using a home made solution, based on PhotoGalery. Made with ♥ using <a href="https://www.djangoproject.com/" target="_blank">Django</a> and <a href="https://getbootstrap.com/" target="_blank">Boostrap 5</a>.<br>
+          Source code can be found in this github repository : <a href="https://github.com/hypsug0/PhotoGalery" target="_blank">hypsug0/PhotoGalery</a>.
         </p>
       </div>
     </footer>

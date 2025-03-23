@@ -1,6 +1,6 @@
 # core/user/models.py
 from django.contrib.auth.models import (
-    AbstractBaseUser,
+    AbstractUser,
     BaseUserManager,
     PermissionsMixin,
 )
@@ -42,10 +42,12 @@ class UserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class User(AbstractUser, PermissionsMixin):
     """Custom user model"""
 
     username = models.CharField(db_index=True, max_length=255, unique=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     email = models.EmailField(
         db_index=True, unique=True, null=True, blank=True
     )
