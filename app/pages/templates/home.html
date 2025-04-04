@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load i18n thumbnail static %}
+{% block content %}
+  <section class="py-5 text-center container">
+    <div class="row py-lg-3">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">{{title}}</h1>
+        <p class="lead text-muted">{{ owner.introduction }}</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+        <div class="grid-container">
+          {% for object in object_list %}
+          <a href="{% url 'pages:album' slug=object.slug %}">
+            <div class="grid-item">
+
+                {% if   object.photo_set %}
+                {% thumbnail  object.photo_set.first.image '300x300' crop='center' as im %}
+                <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ object.label }}" loading="lazy" />
+                {% endthumbnail %}
+                {% else %}
+                GO
+                {% endif %}
+
+              <div class="image-overlay">
+                <h5>{{ object.label }}
+
+                </h5>
+                <p class="mb-0 text-truncate">{{ object.description }}</p>
+                <small class="text-muted">
+                  {% if user.is_authenticated %}
+                  <i data-feather="edit"></i>
+                  {% endif %}
+                  {{object.timestamp_create}}
+                </small>
+              </div>
+            </div>
+          </a>
+        {% empty %}
+          No objects yet.
+        {% endfor %}
+        {% if user.is_authenticated %}
+        <div class="grid-item plus-bg">
+          <a href="{% url 'pages:album-create' %}"><img src="{% static 'plus.svg' %}" class="plus-padding " /></a>
+        </div>
+        {% endif %}
+      </div>
+  </div>
+{% endblock %}

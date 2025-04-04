@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+  Login
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row m-auto">
+      <div class="col-md-12 bg-white p-5">
+        {% if user.is_authenticated %}
+          <div>Hi {{ user.username }}!</div>
+          <div>
+            <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button class="btn btn-primary" type="submit">Log Out</button>
+            </form>
+          </div>
+        {% else %}
+          <h3 class="pb-3">Log in</h3>
+          <div class="form-style">
+            <form method="post">
+              {% csrf_token %}
+              <!-- <input type="hidden" name="next" value="{{ next }}" /> -->
+              {{ form|crispy }}
+              <button type="submit" class="btn btn-primary btn-block">Log in</button>
+            </form>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

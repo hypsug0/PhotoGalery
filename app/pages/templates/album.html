@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load i18n text_replace thumbnail static %}
+{% block content %}
+  <div class="container py-5">
+    <h2 class="text-center mb-4 fw-bolder">{{ object.label }}</h2>
+    <p class="text-center text-muted">{{ object.description }}</p>
+    <div class="grid-container">
+      {% for photo in object.photo_set.all %}
+        <div class="grid-item">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#image-{{ photo.pk }}">
+            {% thumbnail photo.image '300x300' crop='center' as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{ photo.label }}" loading="lazy" />
+            {% endthumbnail %}
+          </a>
+          <div class="image-overlay">
+            <h5>{{ photo.name }}</h5>
+            <p class="mb-0 text-truncate">{{ photo.description }}</p>
+          </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="image-{{ photo.pk }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-xl modal-fullscreen">
+            <div class="modal-content">
+              <button type="button" class="btn-close close-link" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div class="modal-body">
+                <div class="row">
+                  <div id="imageDisplay" class="col-12 col-md-8 d-flex align-items-center">
+                    <img class="p-5 shadow rounded" src="{{ photo.image.url }}" alt="{{ photo.label }}" loading="lazy" />
+                  </div>
+                  <div id="imageData" class="col-12 col-md-4 mt-5 mt-md-1 pt-1 overflow-auto h-100">
+                    <h2 class="pretty-title fw-bolder">{{ photo.name }}</h2>
+                    <p class="fw-lighter">by {{ photo.photographer|default_if_none:'-' }}</p>
+                    <p class="fw-lighter">
+                      {% for tag in photo.tags.all %}
+                        <span class="badge text-bg-secondary">{{ tag.name }}</span>
+                      {% endfor %}
+                    </p>
+                    <p>{{ photo.description }}</p>
+                    <dl>
+                      {% for k, v in photo.exif_dict.items %}
+                        <dt>{{ k|underscore_to_space }}</dt>
+                        <dd>{{ v }}</dd>
+                      {% endfor %}
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      {% if user.is_authenticated %}
+        <div class="grid-item plus-bg">
+          <a href="{% url 'pages:album-add-photo' slug=object.slug %}"><img src="{% static 'plus.svg' %}" class="plus-padding" /></a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
