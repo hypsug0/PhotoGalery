@@ -3,7 +3,7 @@ name: Docker Publish
 on:
   push:
     branches:
-      - dev  # Change this to your default branch if it's not 'main'
+      - main  # Change this to your default branch if it's not 'main'
 
 jobs:
   build-and-push:
